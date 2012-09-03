@@ -4,9 +4,9 @@ class CreateBookings < ActiveRecord::Migration
       t.string :customer
       t.string :phone_number
       t.string :email
-      t.references :shuttle_id
+      t.references :shuttle
       t.integer :shuttle_sequence
-      t.references :stop_id
+      t.references :stop
 
       t.timestamps
     end

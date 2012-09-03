@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(:version => 20120826025401) do
     t.string   "customer"
     t.string   "phone_number"
     t.string   "email"
-    t.integer  "shuttle_id_id"
+    t.integer  "shuttle_id"
     t.integer  "shuttle_sequence"
-    t.integer  "stop_id_id"
+    t.integer  "stop_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
@@ -37,9 +37,9 @@ ActiveRecord::Schema.define(:version => 20120826025401) do
 
   create_table "stops", :force => true do |t|
     t.string   "name"
-    t.integer  "shuttle_id_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "shuttle_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

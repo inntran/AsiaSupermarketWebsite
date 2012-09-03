@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Stop do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is not valid without a name" do
+    FactoryGirl.build(:stop, :name => nil).should_not be_valid
+  end
 end
