@@ -20,4 +20,8 @@ describe Shuttle do
       :second_dayofweek => "Fri", :second_timeofday => "5:00PM").should be_valid
   end
 
+  it "is not valid with only time or day in second shuttle" do
+    FactoryGirl.build(:shuttle, :second_dayofweek => "Sat").should_not be_valid
+    FactoryGirl.build(:shuttle, :second_timeofday => "9:00AM").should_not be_valid
+  end
 end
