@@ -12,7 +12,7 @@ class Booking < ActiveRecord::Base
 private
   def set_shuttle_sequence
     if shuttle.shuttle_count == 1 
-      if shuttle.population < shuttle.capacity
+      if shuttle.population <= shuttle.capacity
         self.shuttle_sequence = 1
       else
         errors.add(:shuttle_sequence, "overloaded")
