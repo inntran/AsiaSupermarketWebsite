@@ -32,8 +32,16 @@ class Shuttle < ActiveRecord::Base
     end
   end
 
-  def availablitiy
-
+  def available
+    if self.shuttle_count == 1
+      (self.population < self.capacity) ? 1 : nil
+    elsif self.shuttle_count == 2
+      if self.population(1) < self.capacity
+        1
+      elsif self.population(2) < self.capacity
+        2
+      end
+    end
   end
 
 private

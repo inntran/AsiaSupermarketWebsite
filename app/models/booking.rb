@@ -1,32 +1,38 @@
 class Booking < ActiveRecord::Base
   attr_accessible :customer, :email, :phone_number, :shuttle_id, :stop_id
 
-
   belongs_to :shuttle
   belongs_to :stop
 
   validates :customer, :shuttle_id, :stop_id, :presence => true
-  validate :set_shuttle_sequence, :unless => "shuttle.nil?"
-  validates :shuttle_sequence, :inclusion => [1,2] , :unless => "shuttle_sequence.nil?"
+  # validates :shuttle_sequence, :inclusion => [1,2] , :unless => "shuttle_sequence.nil?"
+  validate :shuttle_capacity, :unless => "shuttle.nil?"
+  after_validation :set_shuttle_sequence, :unless => "shuttle.nil?"
 
 private
+
   def set_shuttle_sequence
     if shuttle.shuttle_count == 1 
       if shuttle.population <= shuttle.capacity
         self.shuttle_sequence = 1
-      else
-        errors.add(:shuttle_sequence, "overloaded")
       end
 
     elsif shuttle.shuttle_count == 2
-      if shuttle.population(1) < shuttle.capacity
+      if shuttle.population(1) <= (shuttle.capacity - 1)
         self.shuttle_sequence = 1
-      elsif shuttle.population <= (shuttle.capacity * 2)# && shuttle.population(1) == shuttle.capacity
+      elsif shuttle.population(2) < shuttle.capacity && shuttle.population(1) == shuttle.capacity
         self.shuttle_sequence = 2
-      else
-        errors.add(:shuttle_sequence, "overloaded")
       end
     end
 
   end
+
+  def shuttle_capacity
+    if shuttle.shuttle_count == 1 && shuttle.population(1) == shuttle.capacity
+      errors.add(:shuttle_sequence, "No.1 is full")
+    elsif shuttle.shuttle_count == 2 && shuttle.population == (2 * shuttle.capacity)
+      errors.add(:shuttle_sequence, "No.2 is overloaded")
+    end
+  end
+ 
 end

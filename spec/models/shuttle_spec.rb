@@ -40,4 +40,44 @@ describe Shuttle do
     shuttle.shuttle_info(1).should == {:dayofweek => "Friday", :timeofday => "5:20PM"}
   end
 
+  context "returns current available shuttle" do
+    it "with 1 shuttle" do
+      shuttle = FactoryGirl.create(:shuttle, :capacity => 5)
+      stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+      4.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+      shuttle.available.should == 1
+    end
+
+    context "with 2 shuttles" do
+      shuttle = FactoryGirl.create(:shuttle, :second_dayofweek => "Fri", :second_timeofday => "5:00PM", :capacity => 5)
+      stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+      it "less than 1 * capacity" do
+        4.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+        shuttle.available.should == 1
+      end
+
+      it "has 1 * capacity population" do
+        5.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+        shuttle.available.should == 2
+      end
+
+      it "has more than 1 * capacity population in total" do
+        7.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+        shuttle.available.should == 2
+      end
+
+      it "has 2 * capacity population in total" do
+        10.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+        shuttle.available.should == nil
+      end
+
+      it "falls back to No.1 with some booking deleted from No.1" do
+        b_1 = FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop) 
+        7.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+        shuttle.available.should == 2
+        b_1.destroy
+        shuttle.available.should == 1
+      end
+    end
+  end
 end
