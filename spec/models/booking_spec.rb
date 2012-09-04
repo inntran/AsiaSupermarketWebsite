@@ -14,14 +14,46 @@ describe Booking do
     FactoryGirl.build(:booking, :shuttle => nil).should_not be_valid
   end
 
-  it "is not valid with a shuttle sequence other than 1 or 2" do
-    FactoryGirl.build(:booking, :shuttle_sequence => 3).should_not be_valid
-    FactoryGirl.build(:booking, :shuttle_sequence => -1).should_not be_valid
+  it "selects 1st shuttle with a population less than one shuttle capacity" do
+    shuttle = FactoryGirl.create(:shuttle, :capacity => 17)
+    stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+    16.times do 
+      FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)
+    end
+    shuttle.population(1).should == 16
+    # TODO: selection
   end
 
-  it "is valid with a shuttle sequence 1 or 2" do
-    FactoryGirl.build(:booking, :shuttle_sequence => 1).should be_valid
-    FactoryGirl.build(:booking, :shuttle_sequence => 2).should be_valid
+  it "selects 2nd shuttle with a population more than one shuttle capacity" do
+    shuttle = FactoryGirl.create(:shuttle, :second_dayofweek => "Sat", :second_timeofday => "9:30AM", :capacity => 20)
+    stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+
+    37.times do
+      FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)
+    end
+    shuttle.population.should == 37
+    shuttle.population(1).should == 20
+    shuttle.population(2).should == 17
+  end
+
+  it "is not valid with more than 2 * capacity in a shuttle line with 2 shuttles" do
+    shuttle = FactoryGirl.create(:shuttle, :second_dayofweek => "Sat", :second_timeofday => "9:30AM", :capacity => 20)
+    stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+
+    39.times {FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)}
+    FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle).should be_valid
+    FactoryGirl.build(:booking, :stop => stop, :shuttle => shuttle).should_not be_valid
+  end
+
+  it "falls back to the 1st shuttle if population is greater than or equal to 20 and the population of 1st is less than 20" do
+  end
+
+  it "is not legal to select 2nd shuttle if there's only one shuttle" do
+    shuttle = FactoryGirl.create(:shuttle)
+    stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+    19.times {FactoryGirl.create(:booking, :shuttle => shuttle, :stop => stop)}
+    FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle).should be_valid
+    FactoryGirl.build(:booking, :shuttle => shuttle, :stop => stop).should_not be_valid
   end
 
 end

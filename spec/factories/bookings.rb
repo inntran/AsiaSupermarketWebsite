@@ -7,6 +7,5 @@ FactoryGirl.define do
     customer { Faker::Name.name }
     phone_number { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.safe_email }
-    shuttle_sequence 1
   end
 end
