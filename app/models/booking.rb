@@ -19,9 +19,9 @@ private
       end
 
     elsif shuttle.shuttle_count == 2
-      if shuttle.population < shuttle.capacity# && shuttle.population(1) < shuttle.capacity
+      if shuttle.population(1) < shuttle.capacity
         self.shuttle_sequence = 1
-      elsif shuttle.shuttle_count == 2 && shuttle.population <= (shuttle.capacity * 2)# && shuttle.population(1) == shuttle.capacity
+      elsif shuttle.population <= (shuttle.capacity * 2)# && shuttle.population(1) == shuttle.capacity
         self.shuttle_sequence = 2
       else
         errors.add(:shuttle_sequence, "overloaded")

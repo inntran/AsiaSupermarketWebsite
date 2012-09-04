@@ -28,12 +28,12 @@ describe Booking do
     shuttle = FactoryGirl.create(:shuttle, :second_dayofweek => "Sat", :second_timeofday => "9:30AM", :capacity => 20)
     stop = FactoryGirl.create(:stop, :shuttle => shuttle)
 
-    37.times do
+    39.times do
       FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)
     end
-    shuttle.population.should == 37
+    shuttle.population.should == 39
     shuttle.population(1).should == 20
-    shuttle.population(2).should == 17
+    shuttle.population(2).should == 19
   end
 
   it "is not valid with more than 2 * capacity in a shuttle line with 2 shuttles" do
@@ -46,6 +46,22 @@ describe Booking do
   end
 
   it "falls back to the 1st shuttle if population is greater than or equal to 20 and the population of 1st is less than 20" do
+    shuttle = FactoryGirl.create(:shuttle, :second_dayofweek => "Sat", :second_timeofday => "9:30AM", :capacity => 20)
+    stop = FactoryGirl.create(:stop, :shuttle => shuttle)
+
+    b_1 = FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)
+    20.times {FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)}
+    shuttle.population(1).should == 20
+    shuttle.population(2).should == 1
+    b_1.shuttle_sequence.should == 1
+
+    b_1.destroy
+    shuttle.population(1).should == 19
+    b_22 = FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)
+    b_22.shuttle_sequence.should == 1
+
+    b_23 = FactoryGirl.create(:booking, :stop => stop, :shuttle => shuttle)
+    b_23.shuttle_sequence.should == 2
   end
 
   it "is not legal to select 2nd shuttle if there's only one shuttle" do
