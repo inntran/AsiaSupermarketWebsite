@@ -6,7 +6,7 @@ class CreateShuttles < ActiveRecord::Migration
       t.string :first_timeofday
       t.string :second_dayofweek
       t.string :second_timeofday
-      t.integer :capacity
+      t.integer :capacity, :default => 20
 
       t.timestamps
     end

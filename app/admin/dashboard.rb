@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ActiveAdmin.register_page "Dashboard" do
 
   menu :priority => 1, :label => proc{ I18n.t("active_admin.dashboard") }
@@ -10,6 +11,15 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
 
+    section "最近订车" do
+      table_for Booking.order("created_at desc").limit(10) do |b|
+        column("姓名") {|b| b.customer }
+        column("电话") {|b| b.phone_number }
+        column("路线") {|b| b.shuttle.name }
+        column("车次") {|b| b.shuttle_sequence }
+        column("车站") {|b| b.stop.name}
+      end
+    end
     # Here is an example of a simple dashboard with columns and panels.
     #
     # columns do

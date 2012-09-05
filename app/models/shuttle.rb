@@ -50,7 +50,7 @@ private
     if second_dayofweek.empty? == true && second_timeofday.empty? == false
       errors.add(:second_dayofweek, "can't be empty with 2nd shuttle time of day set")
     elsif second_timeofday.empty? == true && second_dayofweek.empty? == false
-      errors.add(:second_timeofday, "can't be empty with 2 shuttle day of week set")
+      errors.add(:second_timeofday, "can't be empty with 2nd shuttle day of week set")
     end
   end
 end

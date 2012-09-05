@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20120905143912) do
     t.string   "first_timeofday"
     t.string   "second_dayofweek"
     t.string   "second_timeofday"
-    t.integer  "capacity"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.integer  "capacity",         :default => 20
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   create_table "stops", :force => true do |t|

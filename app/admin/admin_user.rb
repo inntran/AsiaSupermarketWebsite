@@ -1,4 +1,6 @@
-ActiveAdmin.register AdminUser do     
+# -*- coding: utf-8 -*-
+ActiveAdmin.register AdminUser do
+  menu :priority => 100, :label => "用户管理"
   index do                            
     column :email                     
     column :current_sign_in_at        
@@ -10,7 +12,7 @@ ActiveAdmin.register AdminUser do
   filter :email                       
 
   form do |f|                         
-    f.inputs "Admin Details" do       
+    f.inputs "管理员信息" do       
       f.input :email                  
       f.input :password               
       f.input :password_confirmation  
