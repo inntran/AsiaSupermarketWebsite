@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 ActiveAdmin.register Shuttle do
-  days = %w(星期二 星期四 星期五 星期六)
+  days = { "星期二" => "Tuesday", "星期四" => "Thursday", "星期五" => "Friday", "星期六" => "Saturday"}
   times = %w(9:30AM 10:00AM 11:30AM 2:15PM 3:15PM 5:30PM)
   menu :label => "路线", :parent => "班车"
 
   filter :name, :label => "路线名"
+  filter :first_dayofweek, :label => "第一班车日期", :as => :check_boxes, :collection => days
+  filter :second_dayofweek, :label => "第二班车日期", :as => :check_boxes, :collection => days
 
   index do
+    selectable_column
     column "路线名", :name
     column "第一班车日期", :first_dayofweek
     column "第一班车时间", :first_timeofday
