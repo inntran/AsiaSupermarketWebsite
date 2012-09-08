@@ -54,7 +54,6 @@ group :development, :test do
   gem 'rb-inotify', '~> 0.8.8'
 end
 
-gem 'capistrano'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -65,7 +64,7 @@ gem 'capistrano'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
