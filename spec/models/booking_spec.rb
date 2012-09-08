@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Booking do
+  it "has a token that can be found" do
+    booking = FactoryGirl.create(:booking)
+    token = booking.token
+    booking_tobe_deleted = Booking.find_by_token(token)
+    booking_tobe_deleted.destroy
+    lambda { Booking.find(booking)}.should raise_error(ActiveRecord::RecordNotFound)
+  end
+
   context "basic validation" do
     it "has a valid factory" do
       booking = FactoryGirl.create(:booking)

@@ -47,6 +47,8 @@ group :development do
 end
 
 group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-doc'
   gem 'rspec-rails'
   gem 'rb-inotify', '~> 0.8.8'
 end

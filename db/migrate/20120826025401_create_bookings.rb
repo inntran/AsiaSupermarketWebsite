@@ -4,6 +4,7 @@ class CreateBookings < ActiveRecord::Migration
       t.string :customer
       t.string :phone_number
       t.string :email
+      t.string :token
       t.references :shuttle
       t.integer :shuttle_sequence
       t.references :stop

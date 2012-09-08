@@ -5,10 +5,10 @@ ActiveAdmin.register Booking do
 
   filter :shuttle, :label => "班车路线"
   filter :stop, :label => "车站"
+  filter :shuttle_sequence, :label => "车次", :as => :check_boxes, :collection => {"第一班" => 1, "第二班" => 2}
   filter :customer, :label => "客户姓名"
   filter :phone_number, :label => "电话"
   filter :email, :label => "E-mail"
-  filter :shuttle_sequence, :label => "车次", :as => :check_boxes, :collection => {"第一班" => 1, "第二班" => 2}
   filter :created_at, :label => "订车时间", :as => :date_range
 
   index do

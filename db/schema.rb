@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20120905143912) do
     t.string   "customer"
     t.string   "phone_number"
     t.string   "email"
+    t.string   "token"
     t.integer  "shuttle_id"
     t.integer  "shuttle_sequence"
     t.integer  "stop_id"
