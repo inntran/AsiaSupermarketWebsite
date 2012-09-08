@@ -1,4 +1,11 @@
 AsiaSupermarketWebsite::Application.routes.draw do
+
+  get "bookings" => 'bookings#index'
+  post "bookings" => 'bookings#create'
+  get "bookings/new", :as => 'new_booking'
+  get "bookings/:token" => 'bookings#show', :as => 'booking'
+  delete "bookings/:token" => "bookings#destroy"
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config

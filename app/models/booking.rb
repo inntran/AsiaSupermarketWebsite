@@ -1,5 +1,5 @@
 class Booking < ActiveRecord::Base
-  attr_accessible :customer, :email, :phone_number, :shuttle_id, :stop_id
+  attr_accessible :customer, :email, :phone_number, :shuttle_id, :stop_id, :stop, :shuttle
 
   belongs_to :shuttle
   belongs_to :stop

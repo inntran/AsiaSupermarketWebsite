@@ -6,7 +6,7 @@ class Shuttle < ActiveRecord::Base
   validate :incomplete_second_shuttle
 
   has_many :bookings
-
+  has_many :stops
 
   def shuttle_count
     if second_dayofweek.empty? == true && second_timeofday.empty? == true
