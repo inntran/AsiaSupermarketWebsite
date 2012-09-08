@@ -10,6 +10,19 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @booking = Booking.new(params[:booking])
+    if @booking.save
+      redirect_to booking_path(@booking), :success => "You have successfully booked a shuttle, here's the details"
+    elsif @booking.shuttle.available.nil?
+      if @booking.shuttle.shuttle_count == 1
+        redirect_to bookings_path, :notice => "The line you selected has only 1 shuttle, it is full"
+      elsif
+        redirect_to bookings_path, :notice => "The line you selected has 2 shuttles, they are full"
+      end
+    else
+      flash.now[:error] = "Invalid data input"
+      render :new
+    end
   end
 
   def show

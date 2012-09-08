@@ -8,6 +8,7 @@ class Booking < ActiveRecord::Base
   # validates :shuttle_sequence, :inclusion => [1,2] , :unless => "shuttle_sequence.nil?"
   validate :shuttle_capacity, :unless => "shuttle.nil?"
   after_validation :set_shuttle_sequence, :unless => "shuttle.nil?"
+  before_create :add_token
 
 private
 
@@ -35,4 +36,7 @@ private
     end
   end
  
+  def add_token
+    self.token = Digest::MD5.hexdigest "#{SecureRandom.hex(10)}-#{DateTime.now.to_s}"
+  end
 end
