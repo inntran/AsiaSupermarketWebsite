@@ -10,6 +10,7 @@ gem 'haml-rails'
 gem 'activeadmin'
 gem 'rails-i18n'
 gem 'devise-i18n'
+gem 'active_admin_editor'
 
 # Gems used only for assets and not required
 # in production environments by default.
