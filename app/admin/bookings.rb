@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 ActiveAdmin.register Booking do
+  actions :index, :destroy
   menu :priority => 2, :label => "订车情况"
   config.sort_order = "created_at_desc"
 
