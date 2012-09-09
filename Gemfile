@@ -10,7 +10,7 @@ gem 'haml-rails'
 gem 'activeadmin'
 gem 'rails-i18n'
 gem 'devise-i18n'
-gem 'active_admin_editor'
+gem 'active_admin_editor', :git => 'git@github.com:inntran/active_admin_editor.git', :branch => 'image_selection_fix'
 
 # Gems used only for assets and not required
 # in production environments by default.
