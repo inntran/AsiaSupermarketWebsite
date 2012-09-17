@@ -23,7 +23,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
   gem 'compass-rails', '~> 1.0.3'
-  gem 'zurb-foundation', '~> 3.0.9'
+  # gem 'zurb-foundation', '~> 3.0.9'
 end
 
 gem 'jquery-rails'
@@ -50,6 +50,10 @@ group :development, :test do
   gem 'pry-doc'
   gem 'rspec-rails'
   gem 'rb-inotify', '~> 0.8.8'
+end
+
+group :production do
+  gem 'therubyracer'
 end
 
 # To use ActiveModel has_secure_password
