@@ -33,7 +33,7 @@ task :staging do
   role :db, domain, :primary => true
   set :deploy_to, "/srv/www/#{application}-staging"
   set :branch, "master"
-end"
+end
 
 namespace :deploy do
   task :start do ; end
