@@ -15,7 +15,7 @@ set :scm, :git
 
 set :user, "ec2-user"
 
-#after("bundle:install","deploy:dbyml")
+after("bundle:install","deploy:dbyml")
 
 task :production do
   set :domain, "184.73.175.56"
