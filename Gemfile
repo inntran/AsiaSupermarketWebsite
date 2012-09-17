@@ -38,8 +38,6 @@ group :test do
 end
 
 group :development do
-  gem 'pry-rails'
-  gem 'pry-doc'
   gem 'guard'
   gem 'guard-cucumber'
   gem 'guard-rspec'

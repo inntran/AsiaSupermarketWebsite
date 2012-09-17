@@ -18,13 +18,22 @@ set :user, "ec2-user"
 #after("bundle:install","deploy:dbyml")
 
 task :production do
-  set :domain , "184.73.175.56"
+  set :domain, "184.73.175.56"
   role :web, domain
   role :app, domain
   role :db, domain, :primary => true
   set :deploy_to, "/srv/www/#{application}-production"
   set :branch, "master"
 end
+
+task :staging do
+  set :domain, "184.73.175.56"
+  role :web, domain
+  role :app, domain
+  role :db, domain, :primary => true
+  set :deploy_to, "/srv/www/#{application}-staging"
+  set :branch, "master"
+end"
 
 namespace :deploy do
   task :start do ; end
