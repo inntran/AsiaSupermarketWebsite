@@ -52,6 +52,10 @@ group :development, :test do
   gem 'rb-inotify', '~> 0.8.8'
 end
 
+group :production do
+  gem 'therubyracer'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
