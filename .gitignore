@@ -23,3 +23,4 @@ pickle-email-*.html
 public/uploads/
 *~
 .rvmrc
+config/database.yml
