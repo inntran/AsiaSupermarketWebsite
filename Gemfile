@@ -20,6 +20,8 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
+  gem 'rb-inotify', '~> 0.8.8', :require => false if RbConfig::CONFIG["host_os"] =~ /linux/
+  gem 'rb-fsevent', :require => false if RbConfig::CONFIG["host_os"] =~ /darwin/
 
   gem 'uglifier', '>= 1.0.3'
   gem 'compass-rails', '~> 1.0.3'
@@ -49,7 +51,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'rspec-rails'
-  gem 'rb-inotify', '~> 0.8.8'
 end
 
 group :production do
